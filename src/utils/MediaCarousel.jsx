@@ -42,6 +42,11 @@ function MediaCarousel({ mediaItems }) {
       className="w-100 h-100"
       activeIndex={currentIndex}
       onSelect={(index) => false}
+      controls={false}
+      nextIcon={null}
+      prevIcon={null}
+      indicatorLabels={null}
+      indicators={null}
       interval={null}
       ref={carouselRef}
     >
@@ -55,7 +60,7 @@ function MediaCarousel({ mediaItems }) {
                 className="h-100"
                 src={item.url}
                 id={"id_" + index}
-                controls
+                controls={false}
                 onEnded={handleVideoEnded}
               />
             ) : (
