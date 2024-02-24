@@ -5,7 +5,7 @@ import { uploadBytesResumable } from "firebase/storage";
 import { Form } from "react-bootstrap";
 import { FaPaperclip, FaFile } from "react-icons/fa";
 import { LuFileStack } from "react-icons/lu";
-import { ProgressShow } from "./ProgressShow";
+import { ProgressShow } from "../utils/ProgressShow";
 function Announce() {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState({});

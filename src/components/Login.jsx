@@ -23,7 +23,7 @@ function Login() {
       })
       .catch((error) => {
         console.log(error);
-        setError(error.message);
+        setError(error);
       });
   };
 
@@ -33,7 +33,10 @@ function Login() {
   }
   return (
     <div className="sign vh-100 vw-100 d-flex align-items-center justify-content-center">
-      <Card className=" align-items-stretch h-fit-content w-100" style={{ maxWidth:"600px"}}>
+      <Card
+        className=" align-items-stretch h-fit-content w-100"
+        style={{ maxWidth: "600px" }}
+      >
         <Card.Body>
           <h2 className="text-center mb-4">Login</h2>
           <Form onSubmit={handleSubmit} className="vstack gap-3">
@@ -54,10 +57,11 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               label="Password"
             />
-            
+            {error && error.code === "auth/invalid-credentials" && (
+              <p className="text-danger">Invalid email or password</p>
+            )}
             <Button className="">Login</Button>
           </Form>
-
         </Card.Body>
       </Card>
     </div>

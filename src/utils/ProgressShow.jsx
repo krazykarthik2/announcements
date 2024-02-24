@@ -1,5 +1,5 @@
 import React from "react";
-import Bytes from "../utils/Bytes";
+import Bytes from "./Bytes";
 
 export function ProgressShow({ progress }) {
   return (

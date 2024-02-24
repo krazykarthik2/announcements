@@ -15,6 +15,7 @@ import "./index.css";
 import Bytes from "../../utils/Bytes"; // Import the Bytes component
 import { Link } from "react-router-dom";
 import { Carousel, CarouselItem } from "react-bootstrap";
+import MediaCarousel from "../../utils/MediaCarousel";
 function Display() {
   const [items, setItems] = useState([]);
   const [urlMap, setURLMap] = useState(new Map());
@@ -70,7 +71,7 @@ function Display() {
               console.log(prevMap);
               let map = prevMap;
               map.set(itemRef.fullPath, {
-                metadata: prevMap.get(itemRef.fullPath).metadata || {},
+                metadata: prevMap.get(itemRef.fullPath)?.metadata || {},
                 url: url,
               });
               setItems(Array.from(map.values()));
@@ -119,96 +120,97 @@ function Display() {
       {isLoading == false && items.length == 0 ? (
         <div className="no-items">No items</div>
       ) : (
-        <Carousel
-          activeIndex={selectIndex}
-          slide={true}
-          controls={false}
-          onSelect={(e) => {
-            if (e == selectIndex) return;
-            setSelectIndex(e);
-          }}
-          onSlide={(e) => {
-            if (e == selectIndex) return;
-            if (items[e].metadata.contentType.startsWith("video")) return false;
-            setSelectIndex(e);
-          }}
-          wrap={true}
-          className=" itemList gap-2 overflow-hidden"
-          style={{ height: "100vh", width: "100%" }}
-        >
-          {items.map((item, index) => (
-            <Carousel.Item
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              interval={1000}
-              className="item-single d-flex justify-content-center align-items-center"
-              key={index}
-            >
-              <div
-                className="content-full d-flex align-items-center justify-content-center"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                {item?.metadata?.contentType.startsWith("image") ? (
-                  <img
-                    className="pe-none"
-                    src={item.url}
-                    alt={`Image ${index}`}
-                    style={{ height: "100%", width: "auto" }}
-                  />
-                ) : item?.metadata?.contentType.startsWith("video") ? (
-                  <video
-                    className="pe-none"
-                    controls={true}
-                    onSeeked={(e) => {
-                      console.log(this.currentTime);
-                    }}
-                    onEnded={() =>
-                      setSelectIndex((e) => (e < items.length - 1 ? e + 1 : 0))
-                    }
-                    src={item.url}
-                    style={{ height: "100%", width: "auto" }}
-                  />
-                ) : (
-                  <div
-                    className="pe-none text-center d-flex flex-column  justify-content-center align-items-center rounded-4"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      background: "#456",
-                    }}
-                  >
-                    Unsupported Format
-                    <span style={{ fontSize: "10px" }}>
-                      {item.metadata.contentType}
-                    </span>
-                  </div>
-                )}
-              </div>
-              {/* <div className="vstack details position-absolute bottom-0" style={{ fontSize: "5px" }}>
-                <div className="name item-detail">{item.metadata.name}</div>
+        <MediaCarousel mediaItems={items.map((e) => ({type:e?.metadata.contentType,url:e?.url}))}/>
+        // <Carousel
+        //   activeIndex={selectIndex}
+        //   slide={true}
+        //   controls={false}
+        //   onSelect={(e) => {
+        //     if (e == selectIndex) return;
+        //     setSelectIndex(e);
+        //   }}
+        //   onSlide={(e) => {
+        //     if (e == selectIndex) return;
+        //     if (items[e].metadata.contentType.startsWith("video")) return false;
+        //     setSelectIndex(e);
+        //   }}
+        //   wrap={true}
+        //   className=" itemList gap-2 overflow-hidden"
+        //   style={{ height: "100vh", width: "100%" }}
+        // >
+        //   {items.map((item, index) => (
+        //     <Carousel.Item
+        //       style={{
+        //         width: "100%",
+        //         height: "100%",
+        //       }}
+        //       interval={1000}
+        //       className="item-single d-flex justify-content-center align-items-center"
+        //       key={index}
+        //     >
+        //       <div
+        //         className="content-full d-flex align-items-center justify-content-center"
+        //         style={{
+        //           width: "100%",
+        //           height: "100%",
+        //         }}
+        //       >
+        //         {item?.metadata?.contentType.startsWith("image") ? (
+        //           <img
+        //             className="pe-none"
+        //             src={item.url}
+        //             alt={`Image ${index}`}
+        //             style={{ height: "100%", width: "auto" }}
+        //           />
+        //         ) : item?.metadata?.contentType.startsWith("video") ? (
+        //           <video
+        //             className="pe-none"
+        //             controls={true}
+        //             onSeeked={(e) => {
+        //               console.log(this.currentTime);
+        //             }}
+        //             onEnded={() =>
+        //               setSelectIndex((e) => (e < items.length - 1 ? e + 1 : 0))
+        //             }
+        //             src={item.url}
+        //             style={{ height: "100%", width: "auto" }}
+        //           />
+        //         ) : (
+        //           <div
+        //             className="pe-none text-center d-flex flex-column  justify-content-center align-items-center rounded-4"
+        //             style={{
+        //               width: "100%",
+        //               height: "100%",
+        //               background: "#456",
+        //             }}
+        //           >
+        //             Unsupported Format
+        //             <span style={{ fontSize: "10px" }}>
+        //               {item.metadata.contentType}
+        //             </span>
+        //           </div>
+        //         )}
+        //       </div>
+        //       {/* <div className="vstack details position-absolute bottom-0" style={{ fontSize: "5px" }}>
+        //         <div className="name item-detail">{item.metadata.name}</div>
 
-                <div className="fullPath item-detail">
-                  {item.metadata.fullPath}
-                </div>
+        //         <div className="fullPath item-detail">
+        //           {item.metadata.fullPath}
+        //         </div>
 
-                <div className="size item-detail">
-                  <Bytes value={Number(item.metadata.size)} />
-                </div>
-                <div className="time item-detail">
-                  uploaded at: {item.metadata.timeCreated}
-                </div>
-                <div className="type item-detail">
-                  type:{item.metadata.contentType}
-                </div>
-              </div> */}
-            </Carousel.Item>
-          ))}
-        </Carousel>
+        //         <div className="size item-detail">
+        //           <Bytes value={Number(item.metadata.size)} />
+        //         </div>
+        //         <div className="time item-detail">
+        //           uploaded at: {item.metadata.timeCreated}
+        //         </div>
+        //         <div className="type item-detail">
+        //           type:{item.metadata.contentType}
+        //         </div>
+        //       </div> */}
+        //     </Carousel.Item>
+        //   ))}
+        // </Carousel>
       )}
     </div>
   );

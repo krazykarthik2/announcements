@@ -4,6 +4,8 @@
 }
 .carousel-item {
   transform: translateX(300%);
+  height: 100%;
+  width: 100%;
 }
 .carousel-item.active {
   transform: translateX(0%);
