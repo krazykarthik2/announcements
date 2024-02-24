@@ -11,12 +11,12 @@ const firebaseConfig = {
   appId: "1:164010498087:web:3beb461e3af70e9eabd602",
   measurementId: "G-J8JCFY4Y5X",
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
+window.fb={auth,refStorage,storage,analytics};
 
 export { analytics, auth, refStorage, storage };
 
