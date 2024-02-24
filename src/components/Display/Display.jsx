@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo, useTransition } from "react";
 import { refStorage, storage } from "../../utils/firebase";
 import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaEarthAmericas } from "react-icons/fa6";
 import {
   deleteObject,
   getDownloadURL,
@@ -9,7 +10,7 @@ import {
   getStorage,
   listAll,
 } from "firebase/storage";
-import "./index.css"
+import "./index.css";
 
 import Bytes from "../../utils/Bytes"; // Import the Bytes component
 import { Link } from "react-router-dom";
@@ -18,6 +19,7 @@ function Display() {
   const [items, setItems] = useState([]);
   const [urlMap, setURLMap] = useState(new Map());
   const [isLoading, setIsLoading] = useState(true);
+  const [selectIndex, setSelectIndex] = useState(0);
   window.items = items;
   window.urlMap = urlMap;
   useMemo(() => {
@@ -101,25 +103,56 @@ function Display() {
         </div>
       )}
 
-      <h2 className="position-absolute text-white" style={{zIndex:9999999}}>Vishnu x krazy</h2>
+      <h2
+        className="position-absolute text-white d-flex px-2 py-2 justify-content-between w-100 align-items-center"
+        style={{ zIndex: 9999999 }}
+      >
+        <div className="vishnu">Vishnu</div>
+
+        <div className="krazy vstack align-items-end">
+          <div className="name">karthikkrazy</div>
+          <div className="website">
+            <FaEarthAmericas /> karthikkrazy.web.app
+          </div>
+        </div>
+      </h2>
       {isLoading == false && items.length == 0 ? (
         <div className="no-items">No items</div>
       ) : (
-        <Carousel controls={false} className=" itemList gap-2 overflow-hidden" style={{ height: "100vh" ,width:"100%"}}>
+        <Carousel
+          activeIndex={selectIndex}
+          slide={true}
+          controls={false}
+          onSelect={(e) => {
+            if (e == selectIndex) return;
+            setSelectIndex(e);
+          }}
+          onSlide={(e) => {
+            if (e == selectIndex) return;
+            if (items[e].metadata.contentType.startsWith("video")) return false;
+            setSelectIndex(e);
+          }}
+          wrap={true}
+          className=" itemList gap-2 overflow-hidden"
+          style={{ height: "100vh", width: "100%" }}
+        >
           {items.map((item, index) => (
-            <CarouselItem
+            <Carousel.Item
               style={{
-                width:"100%",
-                height:"100%"
+                width: "100%",
+                height: "100%",
               }}
               interval={1000}
               className="item-single d-flex justify-content-center align-items-center"
               key={index}
             >
-              <div className="content-full d-flex align-items-center justify-content-center" style={{
-                width:"100%",
-                height:"100%"
-              }}>
+              <div
+                className="content-full d-flex align-items-center justify-content-center"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
                 {item?.metadata?.contentType.startsWith("image") ? (
                   <img
                     className="pe-none"
@@ -130,7 +163,13 @@ function Display() {
                 ) : item?.metadata?.contentType.startsWith("video") ? (
                   <video
                     className="pe-none"
-                    autoPlay={true}
+                    controls={true}
+                    onSeeked={(e) => {
+                      console.log(this.currentTime);
+                    }}
+                    onEnded={() =>
+                      setSelectIndex((e) => (e < items.length - 1 ? e + 1 : 0))
+                    }
                     src={item.url}
                     style={{ height: "100%", width: "auto" }}
                   />
@@ -150,7 +189,7 @@ function Display() {
                   </div>
                 )}
               </div>
-              <div className="vstack details position-absolute bottom-0" style={{ fontSize: "5px" }}>
+              {/* <div className="vstack details position-absolute bottom-0" style={{ fontSize: "5px" }}>
                 <div className="name item-detail">{item.metadata.name}</div>
 
                 <div className="fullPath item-detail">
@@ -166,12 +205,11 @@ function Display() {
                 <div className="type item-detail">
                   type:{item.metadata.contentType}
                 </div>
-              </div>
-            </CarouselItem>
+              </div> */}
+            </Carousel.Item>
           ))}
         </Carousel>
       )}
-     
     </div>
   );
 }

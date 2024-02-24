@@ -1,4 +1,25 @@
-.carousel-inner{
-    height: 100%;
-    width: 100%;
+.carousel-inner {
+  height: 100%;
+  width: 100%;
+}
+.carousel-item {
+  transform: translateX(300%);
+}
+.carousel-item.active {
+  transform: translateX(0%);
+}
+.vishnu {
+  color: rgb(56, 89, 252);
+  text-shadow: black 0 0 10px;
+  font-size: 40px;
+}
+.krazy {
+  color: #452;
+  text-shadow: black 0 0 10px;
+  .name {
+    font-size: 35px;
+  }
+  .website {
+    font-size: 18px;
+  }
 }
