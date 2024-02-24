@@ -1,0 +1,22 @@
+/* Welcome.css */
+.welcome-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .links-container {
+    margin-top: 20px;
+  }
+  
+  .page-link {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .page-link:hover {
+    color: #007bff;
+  }
+  
