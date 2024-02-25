@@ -6,9 +6,15 @@ import Announce from "./components/Announce";
 import Display from "./components/Display";
 import Announcements from "./components/Announcements";
 import Welcome from "./components/Welcome";
+import { UserContext, auth } from "./utils/firebase";
 
 function App() {
+  const [user, setUser] = React.useState(auth?.currentUser);
+  auth.onAuthStateChanged((user__)=>{
+    setUser(user__);
+  })
   return (
+    <UserContext.Provider value={user}>
     <Router>
       <Routes>
         <Route path="" element={<Welcome />} />
@@ -18,6 +24,7 @@ function App() {
         <Route path="display" element={<Display />} />
       </Routes>
     </Router>
+    </UserContext.Provider>
   );
 }
 

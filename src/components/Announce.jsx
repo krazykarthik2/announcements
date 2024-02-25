@@ -1,14 +1,17 @@
 // Announce.js
-import React, { useEffect, useState } from "react";
-import { refStorage, storage } from "../utils/firebase";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext, auth, refStorage, storage } from "../utils/firebase";
 import { uploadBytesResumable } from "firebase/storage";
 import { Form } from "react-bootstrap";
 import { FaPaperclip, FaFile } from "react-icons/fa";
 import { LuFileStack } from "react-icons/lu";
 import { ProgressShow } from "../utils/ProgressShow";
+import { Link, useNavigate } from "react-router-dom";
 function Announce() {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState({});
+  const user = useContext(UserContext);
+  const navigate = useNavigate();
   window.progress = progress;
   const handleFileChange = (e) => {
     if (e.target.files?.length > 0) {
@@ -53,6 +56,12 @@ function Announce() {
     //uploadTask.resume();
     //uploadTask.cancel();
   };
+  function handleSignOut() {
+    auth.signOut().then(() => {
+      navigate("/login");
+    });
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     uploadFile();
@@ -60,7 +69,30 @@ function Announce() {
   return (
     <div className="vw-100 vh-100 vstack align-items-center justify-content-between">
       <Form className="vstack w-100" onSubmit={handleSubmit}>
-        <h2>Announce</h2>
+        <div className="d-flex flex-column justify-content-between  p-3 bg-dark text-white ">
+          <div className="hstack justify-content-between p-3">
+            <h2 className="d-inline">Announce</h2>
+            <div className="hstack gap-2  ">
+              <Link to="/announcements" className="text-white">
+                Announcements
+              </Link>
+              <Link to="/display" className="text-white">
+                Display
+              </Link>
+            </div>
+          </div>
+
+          <div className="hstack justify-content-between px-5">
+            <span>signed in as {user?.email}</span>
+            <button
+              className="link btn text-primary "
+              onClick={() => handleSignOut()}
+            >
+              signout
+            </button>
+          </div>
+        </div>
+
         <Form.Group controlId="formFile">
           <Form.Label>
             {files.length > 0 ? (
@@ -77,8 +109,8 @@ function Announce() {
                 </div>
               </div>
             ) : (
-              <div className="btn btn-secondary mx-4 my-5">
-                <div className="hstack">
+              <div className="btn btn-secondary d-center mx-4 my-5 p-3">
+                <div className="hstack d-center gap-5 h3 m-0">
                   <FaPaperclip />
                   <span>Select a file</span>
                 </div>
@@ -93,7 +125,7 @@ function Announce() {
           />
         </Form.Group>
         {files.length > 0 && (
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary rounded-3">
             Upload
           </button>
         )}
