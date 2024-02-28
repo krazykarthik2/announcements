@@ -53,7 +53,7 @@ function MediaCarousel({ mediaItems }) {
       {mediaItems.map((item, index) => (
         <Carousel.Item key={index}>
           <div className="w-100 h-100 d-center">
-            {item.type.startsWith("image") ? (
+            {item?.type?.startsWith("image") ? (
               <img className="h-100" src={item.url} alt={`Slide ${index}`} />
             ) : item.type.startsWith("video") ? (
               <video

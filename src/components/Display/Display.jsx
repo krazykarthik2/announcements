@@ -120,7 +120,7 @@ function Display() {
       {isLoading == false && items.length == 0 ? (
         <div className="no-items">No items</div>
       ) : (
-        <MediaCarousel mediaItems={items.map((e) => ({type:e?.metadata.contentType,url:e?.url}))}/>
+        <MediaCarousel mediaItems={items.map((e) => ({type:e?.metadata?.contentType,url:e?.url}))}/>
         // <Carousel
         //   activeIndex={selectIndex}
         //   slide={true}
