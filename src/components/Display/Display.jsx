@@ -62,7 +62,7 @@ function Display() {
                   updated,
                 },
               });
-              setItems(Array.from(map.values()));
+              setItems(Array.from(map.values()).sort((a, b) => a.metadata.updated - b.metadata.updated));
               return map;
             });
           });
