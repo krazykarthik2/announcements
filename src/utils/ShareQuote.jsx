@@ -11,7 +11,7 @@ export function ShareQuote({ quote }) {
         onClick={() => {
           navigator.share({
             title: "quote by " + quote?.author,
-            text: `${quote?.content} ~${quote?.author} \n for more quotes visit:https://vishnuxkrazy.netlify.app/quotes`,
+            text: `${quote?.content} ~${quote?.author} \n for more quotes visit:https://vishnuxkrazy.netlify.app/quote`,
             url: `/quote/${quote?._id}`,
           });
         }}
@@ -22,7 +22,7 @@ export function ShareQuote({ quote }) {
         className="btn copy text-white"
         onClick={() => {
           navigator.clipboard.writeText(
-            `${quote?.content} ~${quote?.author} \n for more quotes visit:https://vishnuxkrazy.netlify.app/quotes`
+            `${quote?.content} ~${quote?.author} \n for more quotes visit:https://vishnuxkrazy.netlify.app/quote`
           );
         }}
       >

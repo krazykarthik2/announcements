@@ -5,12 +5,20 @@ import { RxCross2 } from "react-icons/rx";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import QuoteOnly from "../../utils/QuoteOnly";
 import RandomQuote from "../../utils/RandomQuote";
+import {
+  LeftMostNavigate,
+  LeftNavigate,
+  RightMostNavigate,
+  RightNavigate,
+} from "./Navs";
+import { QuoteCollection } from "./QuoteCollection/QuoteCollection";
 function SearchQuotes() {
   const [tags, setTags] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [results, setResults] = useState([]);
   const query = searchParams.get("query");
   const [data, setData] = useState(null);
+  const [limit, setLimit] = useState(10);
   useEffect(() => {
     setResults(data?.results || []);
   }, [data]);
@@ -35,7 +43,11 @@ function SearchQuotes() {
   useEffect(() => {
     if (query)
       axios
-        .get(`https://api.quotable.io/search/quotes?query=${query}&limit=10`)
+        .get(
+          `https://api.quotable.io/search/quotes?query=${query}&limit=${limit}&page=${
+            searchParams.get("page") || 1
+          }`
+        )
         .then((res) => {
           console.log(res.data);
           setData(res.data);
@@ -62,15 +74,11 @@ function SearchQuotes() {
           </button>
         </div>
       </div>
-      <div className="middle overflow-y-auto">
-        <div className="quotes vstack gap-5">
-          {results.map((quote, index) => (
-            <RandomQuote key={index} quote={quote} />
-          ))}
-        </div>
+      <div className="middle px-2">
+        <QuoteCollection {...{ data, setSearchParams, limit, quotes: results }} />
       </div>
       <div className="bottom">
-        <div className="tags d-flex justify-content-center mb-5 align-items-center flex-wrap gap-2">
+        <div className="tags d-flex justify-content-center mb-3 align-items-center flex-wrap gap-2">
           {tags
             .filter((e) => {
               if (query == null) {

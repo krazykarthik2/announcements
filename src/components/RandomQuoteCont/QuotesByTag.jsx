@@ -6,10 +6,8 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import QuoteOnly from "../../utils/QuoteOnly";
-import RandomQuote from "../../utils/RandomQuote";
-import { LeftNavigate, RightNavigate } from "./Navs";
 import { FaInfoCircle } from "react-icons/fa";
+import { QuoteCollection } from "./QuoteCollection/QuoteCollection";
 
 function QuotesByTag() {
   const [quotes, setQuotes] = useState([]);
@@ -65,25 +63,7 @@ function QuotesByTag() {
           </div>
 
           <div className="bottom mb-3">
-            <div className="hstack w-100 align-items-center px-3  ">
-              <LeftNavigate {...{ data, setSearchParams, size: "50px" }} />
-
-              <div className="quotes d-flex flex-column">
-                <div className="quotes-index">
-                  {(data?.page - 1) * limit}-
-                  {(data?.page - 1) * limit + data.count}/{data.totalCount}
-                </div>
-                <div
-                  className="real-quotes vstack gap-5"
-                  style={{ maxHeight: "70vh", overflowY: "auto" }}
-                >
-                  {quotes.map((quote) => (
-                    <RandomQuote key={quote._id} quote={quote} />
-                  ))}
-                </div>
-              </div>
-              <RightNavigate {...{ data, setSearchParams, size: "50px" }} />
-            </div>
+            <QuoteCollection {...{ data, setSearchParams, limit, quotes }} />
             <div className="pagination d-center">
               {data?.page}/{data?.totalPages}
             </div>

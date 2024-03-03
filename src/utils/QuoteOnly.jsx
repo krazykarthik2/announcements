@@ -12,7 +12,7 @@ function QuoteOnly({ quote }) {
           <div className="quote h4">{quote?.content}</div>
           <div className="hstack justify-content-between">
             <ShareQuote quote={quote} />
-            <div className="tags text-end gap-2 hstack justify-content-end">
+            <div className="tags flex-wrap text-end gap-2 hstack justify-content-end">
               {quote?.tags?.map((tag, index) => (
                 <Tag key={index} tag={tag} />
               ))}

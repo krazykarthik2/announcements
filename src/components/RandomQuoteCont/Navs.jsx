@@ -22,7 +22,7 @@ export function LeftMostNavigate({
             return e;
           });
         }}
-        className="text-white btn border-0 outline-0"
+        className="nav-arrow start-0 text-white btn border-0 outline-0 m-0 p-0"
       >
         <FaAngleDoubleLeft size={size} />
       </button>
@@ -44,7 +44,7 @@ export function RightMostNavigate({
             return e;
           });
         }}
-        className="text-white btn border-0 outline-0"
+        className="nav-arrow end-0 text-white btn border-0 outline-0 m-0 p-0"
       >
         <FaAngleDoubleRight size={size} />
       </button>
@@ -66,7 +66,7 @@ export function RightNavigate({
             return e;
           });
         }}
-        className="text-white btn border-0 outline-0"
+        className="nav-arrow end-0 text-white btn border-0 outline-0 m-0 p-0"
       >
         <FaAngleRight size={size} />
       </button>
@@ -89,7 +89,7 @@ export function LeftNavigate({
             return e;
           });
         }}
-        className="text-white btn border-0 outline-0"
+        className="nav-arrow start-0 text-white btn border-0 outline-0 m-0 p-0"
       >
         <FaAngleLeft size={size} />
       </button>

@@ -9,6 +9,7 @@ import {
 import QuoteOnly from "../../utils/QuoteOnly";
 import { LeftNavigate, RightNavigate } from "./Navs";
 import { FaInfoCircle } from "react-icons/fa";
+import { QuoteCollection } from "./QuoteCollection/QuoteCollection";
 
 function QuotesByAuthor() {
   const [quotes, setQuotes] = useState([]);
@@ -72,28 +73,7 @@ function QuotesByAuthor() {
           </div>
 
           <div className="bottom">
-            <div className="hstack w-100 align-items-center px-5 ">
-              <LeftNavigate
-                {...{ data, setSearchParams, location, size: "50px" }}
-              />
-              <div
-                className="quotes d-flex flex-column"
-                style={{ maxHeight: "70vh", overflowY: "auto" }}
-              >
-                <div className="quotes-index">
-                  {(data?.page - 1) * limit}-
-                  {(data?.page - 1) * limit + data.count}/{data.totalCount}
-                </div>
-                <div className="real-quotes vstack gap-5">
-                  {quotes.map((quote) => (
-                    <QuoteOnly key={quote._id} quote={quote} />
-                  ))}
-                </div>
-              </div>
-              <RightNavigate
-                {...{ data, setSearchParams, location, size: "50px" }}
-              />
-            </div>
+            <QuoteCollection {...{ data, setSearchParams, limit, quotes,commonAuthor:true }} />
             <div className="pagination d-center">
               {data?.page}/{data?.totalPages}
             </div>
