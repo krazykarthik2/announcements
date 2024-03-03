@@ -1,0 +1,8 @@
+.display-authors{
+    table {
+        tr, td,thead,th {
+            background:none !important;
+            color:white;
+        }
+    }
+}

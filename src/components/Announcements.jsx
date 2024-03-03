@@ -19,12 +19,23 @@ import {
 import Bytes from "../utils/Bytes"; // Import the Bytes component
 import { Link, useActionData, useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
+import RandomQuote from "../utils/RandomQuote";
+import axios from "axios";
 function Announcements() {
   const [items, setItems] = useState([]);
   const [urlMap, setURLMap] = useState(new Map());
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [refresh, setRefresh] = useState();
+  const [refresh, setRefresh] = useState(); 
+  const [quote, setQuote] = useState(null);
+
+  ///////
+  useEffect(() => {
+    axios.get("https://api.quotable.io/random").then((res) => {
+      setQuote(res.data);
+    });
+  }, [refresh]);
+  ///////
   const navigate = useNavigate();
   const user = useContext(UserContext);
   window.items = items;
@@ -135,9 +146,14 @@ function Announcements() {
       }
     >
       {isLoading && (
-        <div className="loading-overlay position-absolute top-50 start-50 vh-100 vw-100 text-white translate-middle bg-glass d-center ">
-          <div>Loading...</div>
-        </div>
+        <>
+          <div className="loading-overlay position-absolute top-50 start-50 vh-100 vw-100 text-white translate-middle bg-glass d-center ">
+            <div>Loading...</div>
+          </div>
+          <div className="loading-overlay mb-5 position-absolute d-center bottom-0 ">
+            <RandomQuote quote={quote} />
+          </div>
+        </>
       )}
       {isDeleting && (
         <div className="loading-overlay position-absolute top-50 start-50 vh-100 vw-100 text-white translate-middle bg-glass  d-center ">
