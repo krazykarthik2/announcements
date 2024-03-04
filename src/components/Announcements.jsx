@@ -1,4 +1,4 @@
-// Announcements.js
+ /// Announcements.js
 import React, {
   useState,
   useEffect,
@@ -215,23 +215,25 @@ function Announcements() {
                           {...provided.dragHandleProps}
                         >
                           <Col className="content-thumb flex-grow-0 ">
-                            {item?.metadata?.contentType.startsWith("image") ? (
-                              <img
-                                className="pe-none"
-                                src={item.url}
-                                alt={`Image ${index}`}
+                          {item?.metadata?.contentType&&<>
+                          
+                             {item?.metadata?.contentType.startsWith("image") ? (
+                               <img
+                               className="pe-none"
+                               src={item.url}
+                               alt={`Image ${index}`}
                                 style={{ width: "150px" }}
                               />
                             ) : item?.metadata?.contentType.startsWith(
-                                "video"
+                              "video"
                               ) ? (
-                              <video
+                                <video
                                 controls={true}
                                 autoPlay={false}
                                 src={item.url}
                                 style={{ width: "150px" }}
-                              />
-                            ) : (
+                                />
+                                ) : (
                               <div
                                 className="pe-none text-center d-flex flex-column  justify-content-center align-items-center rounded-4"
                                 style={{
@@ -239,13 +241,14 @@ function Announcements() {
                                   height: "125px",
                                   background: "#4567",
                                 }}
-                              >
+                                >
                                 Unsupported Format
                                 <span style={{ fontSize: "10px" }}>
                                   {item?.metadata?.contentType}
                                 </span>
                               </div>
                             )}
+                            </>}
                           </Col>
                           <Col className="flex-grow-0">
                             <Link
