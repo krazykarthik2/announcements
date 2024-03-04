@@ -101,7 +101,14 @@ function DisplayAuthors() {
   };
   ///dots
   return (
-    <div className="display-authors w-100 vh-100 vstack justify-content-between bg-dark text-white">
+    <div
+      className={
+        "display-authors w-100 vh-100 vstack justify-content-between bg-dark text-white" +
+        (Object.keys(data).length==0)
+          ? " cont-loading "
+          : ""
+      }
+    >
       <div className="header hstack justify-content-between px-4 pt-2">
         <div className="display-authors-title h2">Authors</div>
         <Link className="search-icon text-white " to={"/quote/authors/search"}>
@@ -122,7 +129,8 @@ function DisplayAuthors() {
               >
                 <div className="label">sort by :</div>
                 {sortOptions.map((e, i) => (
-                  <div key={i}
+                  <div
+                    key={i}
                     className={
                       "option" +
                       (i == sortOpt
@@ -149,7 +157,8 @@ function DisplayAuthors() {
               <div className="orderbyopts hstack gap-4">
                 <div className="label">order by :</div>
                 {orderOptions.map((e, i) => (
-                  <div key={i}
+                  <div
+                    key={i}
                     className={
                       "option" +
                       (i == orderOpt
@@ -204,7 +213,6 @@ function DisplayAuthors() {
                 />
               </div>
               <div className="w-100 d-center">
-                
                 <Table
                   bordered
                   striped

@@ -25,11 +25,13 @@ function RandomQuoteCont() {
         )
         .then((res) => {
           setQuote(res.data);
-        });
+        }).catch(e=>{
+          console.log(e)
+        })
     }
   }, [params]);
   return (
-    <div className="vw-100 vh-100 vstack justify-content-between bg-dark text-white">
+    <div className="random-quote-page vw-100 vh-100 vstack justify-content-between bg-dark text-white">
       <div className="hstack justify-content-between p-5">
         <div className="heading h4">Quotes</div>
         <Link to={"/quote/search"} className="search text-white">

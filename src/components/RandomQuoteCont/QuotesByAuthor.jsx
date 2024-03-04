@@ -10,6 +10,7 @@ import QuoteOnly from "../../utils/QuoteOnly";
 import { LeftNavigate, RightNavigate } from "./Navs";
 import { FaInfoCircle } from "react-icons/fa";
 import { QuoteCollection } from "./QuoteCollection/QuoteCollection";
+import Loading from "../../utils/Loading";
 
 function QuotesByAuthor() {
   const [quotes, setQuotes] = useState([]);
@@ -42,11 +43,16 @@ function QuotesByAuthor() {
   }, [params]);
   return (
     <div
-      className="vw-100 vh-100 d-flex flex-column text-white bg-dark justify-content-between"
+      className={
+        "vw-100 vh-100 d-flex flex-column text-white bg-dark justify-content-between" +
+        ((Object.keys(data||{}).length==0)
+          ? " cont-loading "
+          : "")
+      }
       style={{ maxHeight: "100vh" }}
     >
       {loading ? (
-        "loading"
+        <Loading />
       ) : (
         <>
           <div className="author-intro-sec">
@@ -73,7 +79,9 @@ function QuotesByAuthor() {
           </div>
 
           <div className="bottom">
-            <QuoteCollection {...{ data, setSearchParams, limit, quotes,commonAuthor:true }} />
+            <QuoteCollection
+              {...{ data, setSearchParams, limit, quotes, commonAuthor: true }}
+            />
             <div className="pagination d-center">
               {data?.page}/{data?.totalPages}
             </div>

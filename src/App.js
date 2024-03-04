@@ -6,17 +6,17 @@ import Announcements from "./components/Announcements";
 import Display from "./components/Display";
 import Login from "./components/Login";
 import {
-  RandomQuoteCont,
-  QuotesByAuthor,
   Author,
   DisplayAuthors,
+  QuotesByAuthor,
+  RandomQuoteCont,
 } from "./components/RandomQuoteCont";
+import AuthorRedirect from "./components/RandomQuoteCont/AuthorRedirect";
+import QuotesByTag from "./components/RandomQuoteCont/QuotesByTag";
+import SearchAuthors from "./components/RandomQuoteCont/SearchAuthors";
+import SearchQuotes from "./components/RandomQuoteCont/SearchQuotes";
 import Welcome from "./components/Welcome";
 import { UserContext, auth } from "./utils/firebase";
-import SearchAuthors from "./components/RandomQuoteCont/SearchAuthors";
-import AuthorRedirect from "./components/RandomQuoteCont/AuthorRedirect";
-import SearchQuotes from "./components/RandomQuoteCont/SearchQuotes";
-import QuotesByTag from "./components/RandomQuoteCont/QuotesByTag";
 
 function App() {
   const [user, setUser] = React.useState(auth?.currentUser);

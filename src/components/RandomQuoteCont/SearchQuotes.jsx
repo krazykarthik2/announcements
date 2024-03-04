@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaArrowLeft, FaSearch } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import QuoteOnly from "../../utils/QuoteOnly";
@@ -51,6 +51,9 @@ function SearchQuotes() {
         .then((res) => {
           console.log(res.data);
           setData(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
         });
     else setData(null);
   }, [searchParams]);
@@ -58,7 +61,10 @@ function SearchQuotes() {
     <div className="w-100 vh-100 overflow-hidden vstack justify-content-between bg-dark text-white gap-5  ">
       <div className="top pt-4">
         <div className="heading h3 d-center">Search Quotes</div>
-        <div className="search hstack px-3">
+        <div className="search hstack px-3 ">
+          <Link className="btn border-0 text-white back nav" to="../">
+            <FaArrowLeft />
+          </Link>
           <input
             type="text"
             className="form-control  text-white bg-transparent"
@@ -66,19 +72,24 @@ function SearchQuotes() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <Link className="btn text-white" to="../">
+          <button
+            className="btn border-0 text-white"
+            onClick={(e) => setQuery("")}
+          >
             <RxCross2 />
-          </Link>
-          <button className="btn text-white">
+          </button>
+          <button className="btn border-0 text-white">
             <FaSearch />
           </button>
         </div>
       </div>
       <div className="middle px-2">
-        <QuoteCollection {...{ data, setSearchParams, limit, quotes: results }} />
+        <QuoteCollection
+          {...{ data, setSearchParams, limit, quotes: results }}
+        />
       </div>
-      <div className="bottom">
-        <div className="tags d-flex justify-content-center mb-3 align-items-center flex-wrap gap-2">
+      <div className={"bottom" + (tags.length == 0 ? " cont-loading " : "")}>
+        <div className="tags d-flex justify-content-center mb-3 align-items-center flex-wrap gap-2" >
           {tags
             .filter((e) => {
               if (query == null) {

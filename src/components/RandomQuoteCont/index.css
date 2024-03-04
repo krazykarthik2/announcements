@@ -1,8 +1,84 @@
-.display-authors{
-    table {
-        tr, td,thead,th {
-            background:none !important;
-            color:white;
-        }
+@font-face {
+  font-family: Neue Machina;
+  src: url("/src/assets/fonts/NeueMachina-Light.otf")
+    url("/src/assets/fonts/NeueMachina-Regular.otf")
+    url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Redacted&display=swap");
+.display-authors {
+  table {
+    tr,
+    td,
+    thead,
+    th {
+      background: none !important;
+      color: white;
     }
+  }
+}
+
+.random-quote-page,
+.loading,
+.author-intro-sec,
+.tag-intro-sec,
+.author {
+  font-family: "Neue Machina";
+}
+@keyframes opacity-up-down {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.cont-loading {
+  cursor: progress !important;
+  .nav,
+  .nav * {
+    pointer-events: all !important;
+  }
+  * {
+    pointer-events: none !important;
+    font-family: "Redacted" !important;
+    animation: opacity-up-down 0.5s alternate infinite;
+  }
+  .const,
+  .action,
+  .const *,
+  .action * {
+    font-family: "Neue Machina" !important;
+    opacity: 0.5;
+    animation: none;
+  }
+}
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 25px !important;
+  }
+  h2 {
+    font-size: 20px !important;
+  }
+  h3 {
+    font-size: 17px !important;
+  }
+  .quote {
+    font-size: 20px;
+  }
+  .tag {
+    font-size: 11px !important;
+  }
+}
+.tag {
+  transition: all 2s ease;
+}
+*:has(.tag:hover) {
+  .tag:hover {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  .tag {
+    opacity: 0.5;
+  }
 }

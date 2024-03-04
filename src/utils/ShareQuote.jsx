@@ -4,6 +4,21 @@ import { FaShareNodes, FaSquareArrowUpRight } from "react-icons/fa6";
 import { FaCopy } from "react-icons/fa";
 
 export function ShareQuote({ quote }) {
+
+  if (!quote || quote.loading)
+    return (
+      <div className="left hstack gap-2">
+        <button className="btn share text-white pe-none opacity-50">
+          <FaShareNodes size={"27px"} />
+        </button>{" "}
+        <button className="btn copy text-white pe-none opacity-50">
+          <FaCopy size={"27px"} />
+        </button>
+        <Link className="share text-white pe-none opacity-50">
+          <FaSquareArrowUpRight size={"27px"} />
+        </Link>
+      </div>
+    );
   return (
     <div className="left hstack gap-2">
       <button

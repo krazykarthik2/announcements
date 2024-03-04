@@ -20,6 +20,7 @@ import {
   RightMostNavigate,
   RightNavigate,
 } from "./Navs";
+import Loading from "../../utils/Loading";
 
 function AuthorRedirect() {
  const params = useParams();
@@ -45,9 +46,7 @@ function AuthorRedirect() {
   }, []);
 
   return (
-   <div className="loading">
-    loading
-   </div>
+  <Loading />
   );
 }
 export default AuthorRedirect;
