@@ -21,7 +21,7 @@ function RandomQuoteCont() {
       axios
         .get(
           "https://api.quotable.io/" +
-            (params.id ? "quotes/" + params.id : "random")
+          (params.id ? "quotes/" + params.id : "random")
         )
         .then((res) => {
           setQuote(res.data);
@@ -35,13 +35,25 @@ function RandomQuoteCont() {
       <div className="hstack justify-content-between p-5">
         <div className="heading h4">Quotes</div>
         <Link to={"/quote/search"} className="search text-white">
-          <FaSearch size={"30px"}/>
+          <FaSearch size={"30px"} />
         </Link>
       </div>
       <div className="quote-cont p-5">
         <RandomQuote quote={quote} />
       </div>
-      <div className="bottom"></div>
+      <div className="bottom">
+        <div className="hstack w-100 justify-content-between">
+          <div className="left rounded-circle p-3">
+            <FaRedo />
+          </div>
+          <div className="center rounded-circle p-3">
+            <FaRedo />
+          </div>
+          <div className="right rounded-circle p-3">
+            <FaRedo />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
