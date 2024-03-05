@@ -1,7 +1,7 @@
 @font-face {
-  font-family: Neue Machina;
-  src: url("/src/assets/fonts/NeueMachina-Light.otf")
-    url("/src/assets/fonts/NeueMachina-Regular.otf")
+  font-family: 'Neue';
+  src: url("/src/assets/fonts/NeueMachina-Light.otf"),
+    url("/src/assets/fonts/NeueMachina-Regular.otf"),
     url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
 }
 
@@ -23,7 +23,7 @@
 .author-intro-sec,
 .tag-intro-sec,
 .author {
-  font-family: "Neue Machina";
+  font-family: "Neue";
 }
 @keyframes opacity-up-down {
   0% {
@@ -48,7 +48,7 @@
   .action,
   .const *,
   .action * {
-    font-family: "Neue Machina" !important;
+    font-family: "Neue" !important;
     opacity: 0.5;
     animation: none;
   }
