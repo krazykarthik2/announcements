@@ -89,7 +89,7 @@ function SearchQuotes() {
         />
       </div>
       <div className={"bottom" + (tags.length == 0 ? " cont-loading " : "")}>
-        <div className="tags d-flex justify-content-center mb-3 align-items-center flex-wrap gap-2" >
+        <div className="search-tags d-flex justify-content-center mb-3 align-items-center flex-wrap gap-2" >
           {tags
             .filter((e) => {
               if (query == null) {
@@ -107,11 +107,11 @@ function SearchQuotes() {
             .map((tag, index) => (
               <Link
                 to={`../tags/${tag.name.toLowerCase().split(" ").join("-")}`}
-                className="tag text-white text-decoration-none d-inline-flex rounded-pill px-2 py-1 gap-2 bg-secondary"
+                className="tag text-white text-decoration-none d-inline-flex rounded-pill px-2 py-1 gap-2 border border-secondary "
                 key={tag._id}
               >
                 <div className="">{tag.name}</div>
-                <div className="badge bg-info d-center text-dark">
+                <div className="badge bg-info text-dark d-center ">
                   {tag.quoteCount}
                 </div>
               </Link>

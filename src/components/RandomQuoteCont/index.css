@@ -1,11 +1,12 @@
 @font-face {
-  font-family: 'Neue';
+  font-family: "Neue";
   src: url("/src/assets/fonts/NeueMachina-Light.otf"),
     url("/src/assets/fonts/NeueMachina-Regular.otf"),
     url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Redacted&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
 .display-authors {
   table {
     tr,
@@ -22,7 +23,8 @@
 .loading,
 .author-intro-sec,
 .tag-intro-sec,
-.author {
+.author,
+.quote {
   font-family: "Neue";
 }
 @keyframes opacity-up-down {
@@ -66,17 +68,58 @@
   .quote {
     font-size: 20px;
   }
+  .author {
+    font-size: 15px;
+  }
   .tag {
     font-size: 11px !important;
   }
 }
-.tag {
-  transition: all 2s ease;
+.quote-cont {
+  .tag {
+    transition: all 1s ease;
+    position: relative;
+    margin: 0 10px;
+    padding-left: 20px;
+    text-decoration: none;
+    -webkit-transition: color 0.2s;
+
+    .badge {
+      font-weight: bold;
+      font-size: 11px;
+      padding: 2px 5px;
+      font-family: "Fira Code", sans-serif;
+    }
+  }
+  .tag::before {
+    background: inherit;
+    border-radius: 10px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+    content: "";
+    height: 6px;
+    left: 5px;
+    position: absolute;
+    width: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .tag::after {
+    background: inherit;
+    height: 100%;
+    width: 10px;
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 0;
+    clip-path: polygon(0% 0%, 0% 100%, 100% 60%, 100% 40%);
+  }
 }
-*:has(.tag:hover) {
+.search-tags:has(.tag:hover) {
   .tag:hover {
     transform: scale(1.2);
     opacity: 1;
+    transition: all 1.5s ease;
   }
   .tag {
     opacity: 0.5;

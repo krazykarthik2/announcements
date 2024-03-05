@@ -8,7 +8,7 @@ function Loading() {
         <div className="icon">
           <FaSyncAlt size={"60px"}  />
         </div>
-        <div className="text">loading</div>
+        <div className="text const">loading</div>
       </div>
     </div>
   );
