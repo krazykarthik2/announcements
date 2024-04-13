@@ -111,9 +111,9 @@ function Display() {
         <div className="vishnu">Vishnu</div>
 
         <div className="krazy vstack align-items-end">
-          <div className="name">karthikkrazy</div>
+          <div className="name"></div>
           <div className="website">
-            <FaEarthAmericas /> karthikkrazy.web.app
+            <FaEarthAmericas /> 
           </div>
         </div>
       </h2>
